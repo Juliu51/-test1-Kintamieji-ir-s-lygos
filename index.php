@@ -44,15 +44,14 @@ echo '<br>';
 echo "TRECIA UZDUOTIS";
 echo '<br>';
 echo '<br>';
-                                                                /////////PERDARYTI BE MASSYVO
+                            
 $vienas = rand(0,25);
 $du = rand(0,25);
 $trys = rand(0,25);
 
 
-$skaiciai = array($vienas, $du, $trys);
-sort($skaiciai);
-echo 'vidurine reiksme: ' . $skaiciai[1];
+$skaiciai = max(min($vienas, $du), min(max($vienas, $du), $trys));
+echo 'vidurine reiksme: ' . $skaiciai;
 
 echo '<br>';
 echo '<br>';
@@ -77,13 +76,56 @@ echo '<br>';
 echo "PENKTA UZDUOTIS";
 echo '<br>';
 echo '<br>';
-                                                        //////////////////////NOT DONE
+                                                       
 $a1 = rand(0,2);
 $a2 = rand(0,2);
 $a3 = rand(0,2);
 $a4 = rand(0,2);
 
+$r1 = 0;
+$r2 = 0;
+$r3 = 0;
 
+if($a1 == 0){
+    $r1++;
+}
+if($a1 == 1) {
+    $r2++;
+}
+if($a1 == 2){
+    $r3++;
+}
+////////
+if($a2 == 0){
+    $r1++;
+}
+if($a2 == 1) {
+    $r2++;
+}
+if($a2 == 2){
+    $r3++;
+}
+///////////
+if($a3 == 0){
+    $r1++;
+}
+if($a3 == 1) {
+    $r2++;
+}
+if($a3 == 2){
+    $r3++;
+}
+///////////
+if($a4 == 0){
+    $r1++;
+}
+if($a4 == 1) {
+    $r2++;
+}
+if($a4 == 2){
+    $r3++;
+}
+echo ($r1 . ' ' . $r2 . ' ' . $r3 . ' ');
 
 
 echo '<br>';
@@ -140,9 +182,9 @@ echo '<br>';
 $zvakes = rand(5,3000);
 
 
-if($zvakes < 1000){
+if($zvakes < 999){
     echo 'Zvakiu kiekis: ' . $zvakes . ' Zvakiu kaina: ' . $zvakes;
-} else if( $zvakes > 2000) {
+} else if( $zvakes < 1999 && $zvakes > 999) {
     echo  'Zvakiu kiekis: ' . $zvakes . ' Zvakiu kaina: ' . $zvakes - ($zvakes * (3 / 100));
 } else  {
     echo  'Zvakiu kiekis: ' . $zvakes . ' Zvakiu kaina: ' . $zvakes -($zvakes * (4 / 100));
@@ -158,63 +200,56 @@ echo '<br>';
 $p = rand(0, 100);
 $r  = rand(0, 100);
 $o = rand(0, 100);
-$vidurk = 3;
-$vidurkz = 3;
-$sk = 3;
-$x = 0;
-$c = 0;
-$v = 0;
-$skz = 3;
 
-$x = $p;
-if ($p < 10) {
-       $p = 0;
-    $sk = $vidurk - 1;
-}
-$c = $r;
-if($r < 10) {
-        $r = 0;
-    $sk = $vidurk - 1;
-}
-$v = $o;
-if($o < 10){
-    $o = 0;
-    $sk = $vidurk - 1;
-}
-echo "mazenes uz 10: " . round(($p + $r + $o) / $sk);
+$sum = 0;
+$count = 0;
+
+echo round(($p+$r+$o) / 3);
 echo '<br>';
 
-if ($x < 90) {
-       $x = 0;
-    $skz = $vidurkz - 1;
+if($p >= 0 && $p <= 90) {
+    $sum += $p;
+    $count++;
+}
+if($r >= 0 && $r <= 90) {
+    $sum += $r;
+    $count++;
+}
+if($o >= 0 && $o <= 90) {
+    $sum += $o;
+    $count++;
 }
 
-if($c < 90) {
-        $c = 0;
-    $skz = $vidurkz - 1;
+if($count != 0) {
+    echo round($sum/$count);
 }
-
-if($v > 90){
-    $v = 0;
-    $skz = $vidurkz - 1;
-}
-echo "didesnes uz 90: " . round(($x + $c + $v) / $skz);
 echo '<br>';
 echo '<br>';
 ///////////////////// 10 UZDUOTIS /////////////////////
 echo "DESIMTA UZDUOTIS";
 echo '<br>';
 echo '<br>';
-$minutes = rand(0,300);
 
+$hours = substr("0".rand(0,23), -2);
+$minutes = substr("0".rand(0,59), -2);
+$second =   substr("0".rand(0,59), -2);
+$addSeconds = rand(0, 300);
 
-$date = "2021-08-14 17:40:00";
-echo $date;
+echo $hours.":".$minutes.":".$second;
 echo '<br>';
-echo '<br>';
-$date = strtotime($date);
-$date = strtotime("+{$minutes} minute", $date);
-echo date('Y-m-d H:i:s', $date);
+
+$second += $addSeconds;
+$minsTmp = intval($second / 60);
+$second = $second % 60;
+
+$minutes += $minsTmp;
+$hoursTmp = intval($minutes / 60);
+$minutes = $minutes % 60;
+
+$hours += $hoursTmp;
+
+echo substr("0".$hours, -2).":".substr("0".$minutes, -2).":".substr("0".$second, -2);
+
 echo '<br>';
 echo '<br>';
 ///////////////////// 11 UZDUOTIS /////////////////////
